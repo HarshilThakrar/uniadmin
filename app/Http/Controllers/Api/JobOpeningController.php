@@ -9,6 +9,7 @@ use App\Mail\JobApplicationMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class JobOpeningController extends Controller
 {
@@ -38,18 +39,30 @@ class JobOpeningController extends Controller
             // Save to database
             JobApplication::create($data);
 
-            $fullPath = storage_path('app/private/' . $path);
+            $fullPath = Storage::disk('public')->path($path);
 
             // The email to receive notifications
             $toEmail = env('MAIL_TO_ADDRESS', 'admin@example.com');
-            
-            // Send the email
-            Mail::to($toEmail)->send(new JobApplicationMail($data, $fullPath));
+
+            try {
+                // Send the email
+                Mail::to($toEmail)->send(new JobApplicationMail($data, $fullPath));
+            }
+            catch (\Exception $mailException) {
+                Log::warning('Job Application Mail Failed for ' . $data['email'] . ': ' . $mailException->getMessage());
+                // If mail fails, we still consider the application submitted, but notify about the email issue.
+                // The resume is already saved.
+                return response()->json([
+                    'message' => 'Application submitted, but email notification failed. Please check server SMTP settings.',
+                    'status' => 'partial_success'
+                ], 200);
+            }
 
             return response()->json(['message' => 'Application submitted successfully'], 200);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::error('Job Application Error: ' . $e->getMessage());
-            return response()->json(['message' => 'Failed to submit application. Please try again later.'], 500);
+            return response()->json(['message' => 'Failed to submit application. ' . $e->getMessage()], 500);
         }
     }
 }
