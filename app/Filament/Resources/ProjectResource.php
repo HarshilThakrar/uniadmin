@@ -45,7 +45,7 @@ class ProjectResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->directory('project-images')
-                    ->maxSize(2048)
+		     ->maxSize(51200)
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_active')
                     ->required()

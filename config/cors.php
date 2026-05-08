@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000', env('FRONTEND_URL', 'http://localhost:3000')],
+    'allowed_origins' => ['https://unifiedpts.com', env('FRONTEND_URL', 'https://www.unifiedpts.com')],
 
     'allowed_origins_patterns' => [],
 

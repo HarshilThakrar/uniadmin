@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\JobOpeningController;
+use App\Http\Controllers\Api\BrochureRequestController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -25,3 +26,4 @@ Route::get('/job-openings', [JobOpeningController::class, 'index']);
 Route::post('/job-applications', [JobOpeningController::class, 'apply']);
 Route::post('/track-visit', [AnalyticsController::class, 'trackVisit']);
 Route::post('/leave-page', [AnalyticsController::class, 'leavePage']);
+Route::post('/brochure-requests', [BrochureRequestController::class, 'store']);

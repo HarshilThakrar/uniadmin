@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobOpening;
+use App\Models\JobApplication;
 use App\Mail\JobApplicationMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -29,9 +30,14 @@ class JobOpeningController extends Controller
         try {
             $data = $request->only(['name', 'email', 'phone', 'position']);
             
-            // Store the resume temporarily to attach it
+            // Store the resume
             $resume = $request->file('resume');
-            $path = $resume->store('temp_resumes');
+            $path = $resume->store('resumes', 'public');
+            $data['resume_path'] = $path;
+            
+            // Save to database
+            JobApplication::create($data);
+
             $fullPath = storage_path('app/private/' . $path);
 
             // The email to receive notifications
@@ -39,11 +45,6 @@ class JobOpeningController extends Controller
             
             // Send the email
             Mail::to($toEmail)->send(new JobApplicationMail($data, $fullPath));
-
-            // Optional: delete the temporary file after sending
-            if (file_exists($fullPath)) {
-                unlink($fullPath);
-            }
 
             return response()->json(['message' => 'Application submitted successfully'], 200);
         } catch (\Exception $e) {
