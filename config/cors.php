@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://pramukhpts.com', env('FRONTEND_URL', 'https://www.pramukhpts.com')],
+    'allowed_origins' => ['https://unifiedpts.com', env('FRONTEND_URL', 'https://www.unifiedpts.com')],
 
     'allowed_origins_patterns' => [],
 
