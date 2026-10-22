@@ -17,7 +17,10 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    protected static ?string $navigationLabel = 'Contact Forms';
+    protected static ?string $navigationGroup = 'Lead Management';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

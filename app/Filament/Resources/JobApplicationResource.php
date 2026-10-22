@@ -19,6 +19,9 @@ class JobApplicationResource extends Resource
     protected static ?string $model = JobApplication::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+    protected static ?string $navigationLabel = 'Applications';
+    protected static ?string $navigationGroup = 'Careers';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

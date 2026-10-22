@@ -18,6 +18,9 @@ class BrochureRequestResource extends Resource
     protected static ?string $model = BrochureRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-arrow-down';
+    protected static ?string $navigationLabel = 'Brochure Requests';
+    protected static ?string $navigationGroup = 'Lead Management';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\JobOpeningController;
 use App\Http\Controllers\Api\BrochureRequestController;
+use App\Http\Controllers\Api\PostController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -27,3 +28,11 @@ Route::post('/job-applications', [JobOpeningController::class, 'apply']);
 Route::post('/track-visit', [AnalyticsController::class, 'trackVisit']);
 Route::post('/leave-page', [AnalyticsController::class, 'leavePage']);
 Route::post('/brochure-requests', [BrochureRequestController::class, 'store']);
+
+// Blog System Routes
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/tags/all', [PostController::class, 'tags']);
+Route::get('/posts/{slug}', [PostController::class, 'show']);
+Route::post('/admin/posts', [PostController::class, 'store']);
+Route::put('/admin/posts/{id}', [PostController::class, 'update']);
+Route::delete('/admin/posts/{id}', [PostController::class, 'destroy']);

@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class ActiveVisitorsTable extends BaseWidget
 {
-    protected static ?int $sort = 1;
-    protected static ?string $pollingInterval = '3s';
-    protected int | string | array $columnSpan = '1';
+    protected static ?int $sort = 2;
+    protected static ?string $pollingInterval = '15s';
+    protected int | string | array $columnSpan = 'full';
     protected static ?string $heading = 'Live Active Pages';
 
     public function table(Table $table): Table

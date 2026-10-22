@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\DB;
 class PopularPagesTable extends BaseWidget
 {
     protected static ?int $sort = 3;
-    protected static ?string $pollingInterval = '3s';
-    protected int | string | array $columnSpan = '1';
+    protected static ?string $pollingInterval = '30s';
+    protected int | string | array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {
